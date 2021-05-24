@@ -15,7 +15,8 @@ def region_of_interest(canny):
     ])
     mask = np.zeros_like(canny)
     cv2.fillPoly(mask, polygons, 255)
-    return mask
+    masked_image = cv2.bitwise_and(canny, mask)
+    return masked_image
 
 image = cv2.imread('C:/Users/vaish/OneDrive/Documents/AI Project/test_image.jpg')
 lane_image = np.copy(image)
@@ -23,5 +24,6 @@ lane_image = np.copy(image)
 #blur = cv2.GaussianBlur(gray,(5,5),0)
 #canny = cv2.Canny(gray, 50, 150)
 canny = canny(lane_image)
-cv2.imshow("result", region_of_interest(canny))
+cropped_image = region_of_interest(canny)
+cv2.imshow("result", cropped_image)
 cv2.waitKey(0)
